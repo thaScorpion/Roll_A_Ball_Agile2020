@@ -6,19 +6,29 @@ using UnityEngine.TestTools;
 
 namespace Tests
 {
-    public class TestMenu
+    public class newTest
     {
         // A Test behaves as an ordinary method
         [Test]
-        public void TestMenuSimplePasses()
+        public void yPushTest()
         {
-            // Use the Assert class to test conditions
+           Assert.AreEqual(2f,TestBall.yPush);
+        }
+        [Test]
+        public void xPushTest()
+        {
+           Assert.AreEqual(15f,TestBall.xPush);
+        }
+        [Test]
+        public void randomFactorTest()
+        {
+           Assert.AreEqual(0.2f,TestBall.randomFactor);
         }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
         // `yield return null;` to skip a frame.
         [UnityTest]
-        public IEnumerator TestMenuWithEnumeratorPasses()
+        public IEnumerator newTestWithEnumeratorPasses()
         {
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.

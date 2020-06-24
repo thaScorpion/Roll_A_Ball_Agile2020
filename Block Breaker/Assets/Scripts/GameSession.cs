@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameSession : MonoBehaviour {
@@ -12,7 +13,10 @@ public class GameSession : MonoBehaviour {
     [SerializeField] bool isAutoPlayEnabled;
     [SerializeField] bool isPaused = false;
     public GameObject pauseMenuUI;
+    [SerializeField] TextMeshProUGUI pauseText;
+    [SerializeField] TextMeshProUGUI highScore;
 
+    public int zPush = 0;
 
     // state variables
     [SerializeField] int currentScore = 0;
@@ -23,6 +27,7 @@ public class GameSession : MonoBehaviour {
         if (gameStatusCount > 1)
         {
             gameObject.SetActive(false);
+            currentScore += pointsPerBlockDestroyed;
             Destroy(gameObject);
         }
         else
@@ -34,19 +39,24 @@ public class GameSession : MonoBehaviour {
     private void Start()
     {
         scoreText.text = currentScore.ToString();    
+        highScore.text = "High Score :"+    PlayerPrefs.GetInt("High",0);
     }
 
     // Update is called once per frame
     void Update () {
+        scoreText.text = currentScore.ToString();  
               if(Input.GetKeyDown("p") && !isPaused)
     {
        print("p");
+       pauseText.text = "game paused p to unpause";
        Time.timeScale = 0;
        isPaused = true;
     }
     else if(Input.GetKeyDown("p") && isPaused)
     {
        print("Unpaused");
+    pauseText.text = "press p to pause";
+
        Time.timeScale = 1;
        isPaused = false;    
     } 
@@ -56,11 +66,17 @@ public class GameSession : MonoBehaviour {
     {
         currentScore += pointsPerBlockDestroyed;
         scoreText.text = currentScore.ToString();
+
     }
 
     public void ResetGame()
     {
-        Destroy(gameObject);
+       
+        if (currentScore > PlayerPrefs.GetInt("High")){
+        PlayerPrefs.SetInt("High", currentScore);
+        }
+         Destroy(gameObject);
+
     }
     public bool IsAutoPlayEnabled()
     {

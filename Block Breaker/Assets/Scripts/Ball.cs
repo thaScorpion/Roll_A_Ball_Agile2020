@@ -61,5 +61,7 @@ public class Ball : MonoBehaviour {
             myAudioSource.PlayOneShot(clip);
             myRigidBody2D.velocity += velocityTweak;
         }
+
     }
+
 }

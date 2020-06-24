@@ -15,6 +15,7 @@ public class Block : MonoBehaviour {
 
     // state variables
     [SerializeField] int timesHit;  // TODO only serialized for debug purposes
+    [SerializeField] int score;  // TODO only serialized for debug purposes
 
     private void Start()
     {
@@ -35,6 +36,7 @@ public class Block : MonoBehaviour {
         if (tag == "Breakable")
         {
             HandleHit();
+            
         }
     }
 
@@ -45,6 +47,7 @@ public class Block : MonoBehaviour {
         if (timesHit >= maxHits)
         {
             DestroyBlock();
+            score =+ 50;
         }
         else
         {
